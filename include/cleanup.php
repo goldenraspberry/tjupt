@@ -395,9 +395,10 @@ function docleanup($forceAll = 0, $printProgress = false)
         $dt = sqlesc(date("Y-m-d H:i:s", (TIMENOW - ($secs))));
         sql_query("UPDATE torrents SET picktype = 'hot', picktime = '" . date("Y-m-d H:i:s") . "' WHERE added > $dt AND picktype = 'normal' AND seeders > " . sqlesc($hotseeder_torrent)) or sqlerr(__FILE__, __LINE__);
     }
-    $secs = ( int )(2 * 86400); // 2 days
-    $dt = sqlesc(date("Y-m-d H:i:s", (TIMENOW - ($secs))));
-    sql_query("UPDATE torrents SET picktype = 'normal' , picktime = '" . date("Y-m-d H:i:s") . "' WHERE picktime < $dt AND picktype = '0day' ") or sqlerr(__FILE__, __LINE__);
+//    取消0day自动过期
+//    $secs = ( int )(2 * 86400); // 2 days
+//    $dt = sqlesc(date("Y-m-d H:i:s", (TIMENOW - ($secs))));
+//    sql_query("UPDATE torrents SET picktype = 'normal' , picktime = '" . date("Y-m-d H:i:s") . "' WHERE picktime < $dt AND picktype = '0day' ") or sqlerr(__FILE__, __LINE__);
 
     if ($printProgress) {
         printProgress("自动挑选热门资源");

@@ -576,10 +576,10 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
             return formatUrl($matches[1], ($newtab == true ? 1 : 0), $matches[2], 'faqlink');
         }
     };
-    $s = preg_replace_callback("/\[url=([^\[\s\"'\(\)]+?)\](.+?)\[\/url\]/i", $anon_formatUrl_Callback_with_adid, $s);
+    $s = preg_replace_callback("/\[url=([^\[\s]+?)\](.+?)\[\/url\]/i", $anon_formatUrl_Callback_with_adid, $s);
 
     // [url]http://www.example.com[/url]
-    $s = preg_replace_callback("/\[url\]([^\[\s\"'\(\)]+?)\[\/url\]/i", function ($matches) use ($newtab) {
+    $s = preg_replace_callback("/\[url\]([^\[\s]+?)\[\/url\]/i", function ($matches) use ($newtab) {
         return formatUrl($matches[1], ($newtab == true ? 1 : 0), '', 'faqlink');
     }, $s);
 

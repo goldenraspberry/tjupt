@@ -315,9 +315,9 @@ if ($action == "add") {
         stderr($lang_comment ['std_error'], $lang_comment ['std_invalid_id']);
 
     $isOwner = false;
+    $res = sql_query("SELECT name, owner FROM torrents WHERE id = $parent_id") or sqlerr(__FILE__, __LINE__);
+    $arr = mysql_fetch_array($res);
     if (get_user_class() < $commanage_class){
-        $res = sql_query("SELECT name, owner FROM torrents WHERE id = $parent_id") or sqlerr(__FILE__, __LINE__);
-        $arr = mysql_fetch_array($res);
         if ($arr['owner'] != $CURUSER ["id"]){
             stderr($lang_comment ['std_error'], $lang_comment ['std_permission_denied']);
         }
