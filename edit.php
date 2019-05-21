@@ -205,7 +205,16 @@ if (!isset ($CURUSER) || ($CURUSER ["id"] != $row ["owner"] && get_user_class() 
             }
             $pickcontent .= '<label id="sp-expire"><b>促销截止:&nbsp;</b><input type="text" name="promotionuntil" id="promotionuntil" value="' . (($row ["promotion_time_type"] == 0) ? $promotionuntil_time : $row ["promotion_until"]) . '" /></label>&nbsp;&nbsp;&nbsp;';
             $pickcontent .= '</br>';
-            $pickcontent .= "<b>" . $lang_edit ['row_torrent_position'] . ":&nbsp;</b>" . "<select name=\"sel_posstate\" style=\"width: 100px;\">" . "<option" . (($row ["pos_state"] == "normal") ? " selected=\"selected\"" : "") . " value=\"0\">" . $lang_edit ['select_normal'] . "</option>" . "<option" . (($row ["pos_state"] == "sticky") ? " selected=\"selected\"" : "") . " value=\"1\">" . $lang_edit ['select_sticky'] . "</option>" . "</select>&nbsp;&nbsp;&nbsp;";
+            // 置顶处理 beg
+            require_once(get_langfile_path('pickup.php'));
+            $pickcontent .= "<b>" . $lang_pickup ['row_torrent_position'] . ":&nbsp;</b>";
+            $pickcontent .= "<select name=\"sel_posstate\" style=\"width: 100px;\">";
+            $pickcontent .= "<option" . (($row ["pos_state"] == "normal") ? " selected=\"selected\"" : "") . " value=\"0\">" . $lang_pickup ['select_normal'] . "</option>";
+            $pickcontent .= "<option" . (($row ["pos_state"] == "sticky") ? " selected=\"selected\"" : "") . " value=\"1\">" . $lang_pickup ['select_sticky'] . "</option>";
+            $pickcontent .= "<option" . (($row ["pos_state"] == "double_sticky") ? " selected=\"selected\"" : "") . " value=\"2\">" . $lang_pickup ['select_double_sticky'] . "</option>";
+            $pickcontent .= "<option" . (($row ["pos_state"] == "triple_sticky") ? " selected=\"selected\"" : "") . " value=\"3\">" . $lang_pickup ['select_triple_sticky'] . "</option>";
+            $pickcontent .= "</select>&nbsp;&nbsp;&nbsp;";
+            // 置顶处理 end
             $pickcontent .= '<label id="pos-expire"><b>置顶截止:&nbsp;</b><input type="text" name="posstateuntil" id="posstateuntil" value="' . (($row ["pos_state"] != "sticky") ? date("Y-m-d H:i:s", time() + 2 * 24 * 3600) : $row ["pos_state_until"]) . '" /></label>&nbsp;&nbsp;&nbsp;';
         }
         // if(get_user_class()>=$torrentmanage_class && $CURUSER["picker"] ==

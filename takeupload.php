@@ -470,7 +470,7 @@ $pos_until = "0000-00-00 00:00:00";
 $pos_state = 'normal';
 if ($tjuptrip == 'yes') {
     $sp_state = 2;
-    $pos_state = 'sticky';
+    $pos_state = 'double_sticky';
     $pos_until = date("Y-m-d H:i:s", strtotime("+1 days"));
 }
 

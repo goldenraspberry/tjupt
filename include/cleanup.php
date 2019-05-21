@@ -377,7 +377,7 @@ function docleanup($forceAll = 0, $printProgress = false)
     // End: expire torrent promotion
 
     // Start:expire sticky torrents
-    $res = sql_query("SELECT id, name, pos_state_until FROM torrents WHERE pos_state = 'sticky' ") or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT id, name, pos_state_until FROM torrents WHERE pos_state != 'normal' ") or sqlerr(__FILE__, __LINE__);
     while ($arr = mysql_fetch_assoc($res)) {
         if ($arr ["pos_state_until"] < date("Y-m-d H:i:s", TIMENOW)) {
             sql_query("UPDATE torrents SET pos_state = 'normal', pos_state_until='0000-00-00 00:00:00' WHERE id=$arr[id]") or sqlerr(__FILE__, __LINE__);
